@@ -1,0 +1,12 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.15.0"
+  },
+  "scripts": {
+    "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
+    "test": "npx hardhat --network localhost test",
+    "test:report-gas": "REPORT_GAS=true npx hardhat --network localhost test"
+  }
+}
