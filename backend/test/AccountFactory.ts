@@ -55,17 +55,29 @@ describe("AccountFactory", function () {
 
     it("should get self account reference ", async function () {
       const { accountFactory, users } = await loadFixture(deployEmptyAccountFactory);
-      const [user1] = users;
+      const [user1,user2] = users;
 
       await accountFactory.connect(user1.userAddress).createAccount(user1.name, user1.genderID, user1.age, user1.interestID, user1.bio, user1.locationID)
+      await accountFactory.connect(user2.userAddress).createAccount(user2.name, user2.genderID, user2.age, user2.interestID, user2.bio, user2.locationID)
 
 
-      const selfAccount = await accountFactory.connect(user1.userAddress).getSelfAccount();
+      const selfAccount1 = await accountFactory.connect(user1.userAddress).getSelfAccount();
+      const selfAccount2 = await accountFactory.connect(user2.userAddress).getSelfAccount();
 
-      expect(selfAccount.user_id).equal(user1.userAddress.address);
-      expect(selfAccount.locationID).equal(user1.locationID);
-      expect(selfAccount.genderID).equal(user1.genderID);
-      expect(selfAccount.interestID).equal(user1.interestID);
+
+
+
+      expect(selfAccount2.user_id).equal(user2.userAddress.address);
+      expect(selfAccount2.locationID).equal(user2.locationID);
+      expect(selfAccount2.genderID).equal(user2.genderID);
+      expect(selfAccount2.interestID).equal(user2.interestID);
+
+      expect(selfAccount1.user_id).equal(user1.userAddress.address);
+      expect(selfAccount1.locationID).equal(user1.locationID);
+      expect(selfAccount1.genderID).equal(user1.genderID);
+      expect(selfAccount1.interestID).equal(user1.interestID);
+
+      
     });
 
     it("should not return any match ", async function () {

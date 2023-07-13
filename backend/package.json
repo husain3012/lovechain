@@ -6,7 +6,7 @@
   },
   "scripts": {
     "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
-    "test": "npx hardhat --network localhost test",
-    "test:report-gas": "REPORT_GAS=true npx hardhat --network localhost test"
+    "test": "npx hardhat test",
+    "test:report-gas": "REPORT_GAS=true npx hardhat test"
   }
 }

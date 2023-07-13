@@ -2,8 +2,7 @@
 pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 
-contract Account {
-  struct AccountInfo {
+ struct AccountInfo {
     address user_id;
     string name;
     uint8 genderID;
@@ -12,6 +11,9 @@ contract Account {
     string bio;
     uint256 locationID;
   }
+
+contract Account {
+ 
 
   struct AddressSet {
     address[] values;

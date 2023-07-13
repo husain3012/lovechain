@@ -14,7 +14,6 @@ function strcmp(string memory a, string memory b) pure returns (bool) {
 // Gender ID:
 // 0 male
 // 1 female
-// 2 others
 
 // Interest ID:
 // 0 male
@@ -30,6 +29,7 @@ contract AccountFactory {
         uint256 interestID;
         uint256 exploredTill;
     }
+    mapping(address => bool) accountExsist;
 
     AccountWithLocation[]  accountsWithLocationIDs;
     mapping(address => uint256) accountMap;
@@ -66,13 +66,26 @@ contract AccountFactory {
         newAccountWithLocationID.interestID = u_interestID;
         newAccountWithLocationID.exploredTill = 0;
         accountMap[msg.sender] = idx;
+        accountExsist[msg.sender] = true;
     }
 
     function getSelfAccount() public view returns (AccountWithLocation memory){
+        require(accountExsist[msg.sender]==true, "User does not exist!");
+
+
         return accountsWithLocationIDs[accountMap[msg.sender]];
 
     }
-    function getMatchingAccounts() public view returns (address[] memory) {
+
+    function getAccountByAddress(address addr) public view returns (AccountInfo memory){
+
+        return Account(addr).getSelfInfo();
+        
+    }
+
+
+
+    function getPotentailMatches() public view returns (address[] memory) {
         uint256 locationID = accountsWithLocationIDs[accountMap[msg.sender]].locationID;
         uint256  interestID = accountsWithLocationIDs[accountMap[msg.sender]].interestID;
         uint256  genderID = accountsWithLocationIDs[accountMap[msg.sender]].genderID;
@@ -97,6 +110,8 @@ contract AccountFactory {
         }
         return matchedAccounts;
     }
+
+ 
     function updateExploredTill() public {
         accountsWithLocationIDs[accountMap[msg.sender]].exploredTill++;
     }
