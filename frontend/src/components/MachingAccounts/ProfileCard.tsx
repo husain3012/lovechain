@@ -14,7 +14,7 @@ import parse from 'html-react-parser';
 
 
 
-const ProfileCard = ({address}) => {
+const ProfileCard = ({address, onMatchProcesses}) => {
     const accountFactory = useContext(accountFactoryCtx)
     const userAccount = useContext(userAccountCtx)
     const [userData, setUserData]  = useState<null|AccountInfoStructOutput>(null)
@@ -39,6 +39,11 @@ const ProfileCard = ({address}) => {
 
     const updatedExplored = async () => {
       await accountFactory.updateExploredTill()
+      if(onMatchProcesses!=undefined){
+        onMatchProcesses(address)
+      }
+
+      
     }
 
   return ( userData?

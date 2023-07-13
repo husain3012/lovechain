@@ -43,7 +43,7 @@ export const getSelfAccountInstance = async (accountFactory: AccountFactory, eth
 
 
 export  const getPotentialMatches = async (accountFactory: AccountFactory) => {
-    const accounts = await accountFactory.getMatchingAccounts()
+    const accounts = await accountFactory.getPotentailMatches()
     const filteredAccounts = accounts.filter(acc=>acc!='0x0000000000000000000000000000000000000000')
     return filteredAccounts
     
